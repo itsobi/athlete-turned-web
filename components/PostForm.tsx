@@ -63,7 +63,7 @@ export default function PostForm() {
           <Button
             type="submit"
             className="hover:bg-green-400"
-            variant={'default'}
+            disabled={form.formState.isSubmitting || !form.formState.isValid}
           >
             Send post
           </Button>
