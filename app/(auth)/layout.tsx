@@ -14,7 +14,7 @@ export default function AppLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="max-h-screen overflow-hidden lg:max-w-7xl m-auto grid grid-cols-9 bg-gray-100/50">
+      <body className="max-h-screen overflow-hidden lg:max-w-7xl mx-auto grid grid-cols-9 bg-gray-100/50">
         <Sidebar />
         {children}
         <RightWidget />

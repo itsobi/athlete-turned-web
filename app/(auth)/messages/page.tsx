@@ -1,9 +1,11 @@
+import PageHeader from '@/components/PageHeader';
 import { SignOutButton } from '@clerk/nextjs';
 
 export default function MessagesPage() {
   return (
     <main className="main-container">
-      <div>Messages Page</div>
+      <PageHeader title="Messages" />
+      <SignOutButton />
     </main>
   );
 }

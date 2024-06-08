@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import SidebarRow from './SidebarRow';
-import { Home, MessageCircle } from 'lucide-react';
+import { Home, MessageCircle, Users } from 'lucide-react';
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -22,18 +22,24 @@ export default function Sidebar() {
             href="https://justobii.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-green-500 hover:underline"
+            className="text-green-400 hover:underline"
           >
             justobii.com
           </a>
         </p>
       </div>
-      <div className="space-y-4 lg:space-y-2 lg:w-full">
+      <div className="space-y-4 mt-6 lg:mt-0 lg:space-y-2 lg:w-full">
         <SidebarRow
           Icon={Home}
           title="Home"
           href="/home"
           active={active('/home')}
+        />
+        <SidebarRow
+          Icon={Users}
+          title="Mentors"
+          href="/mentors"
+          active={active('/mentors')}
         />
         <SidebarRow
           Icon={MessageCircle}
