@@ -1,9 +1,14 @@
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { SignInButton } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
+  const { userId } = auth();
+
+  if (userId) redirect('/home');
   return (
-    <main className="h-screen bg-gradient-to-r from-black to-green-500 pt-10">
+    <main className="h-screen bg-gradient-to-r from-black to-green-400 pt-10">
       <div className="">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-6xl font-extrabold pt-10 text-white/90">

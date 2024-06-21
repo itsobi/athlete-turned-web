@@ -1,0 +1,174 @@
+{
+  "users": [
+    {
+      "id": "user_2hX73LMooJt4cHL9peQqo9TlwVF",
+      "firstName": "Obi",
+      "lastName": "Obialo",
+      "email": "obi.j.obialo@gmail.com",
+      "image": "https://media.licdn.com/dms/image/D5603AQH10mc7bn9Nyg/profile-displayphoto-shrink_200_200/0/1699464870714?e=2147483647&v=beta&t=bI30Gvz286SdSi0gdIYWMQHHOB3YvBxgKEgGpABSpas",
+      "bio": "I am a former Division 1 athlete turned software engineer who is passionate about helping others transition into careers after their playing days are over.",
+      "address": {
+        "city": "Austin",
+        "state": "Texas"
+      },
+      "company": {
+        "department": "Engineering",
+        "name": "SponsorCX",
+        "title": "Software Engineer"
+      }
+    },
+    {
+      "id": "2",
+      "firstName": "Michael",
+      "lastName": "Williams",
+      "email": "michael.williams@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/men/30.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "Houston",
+        "state": "Alabama"
+      },
+      "company": {
+        "department": "Support",
+        "name": "Spinka - Dickinson",
+        "title": "Support Specialist"
+      }
+    },
+    {
+      "id": "3",
+      "firstName": "Sophia",
+      "lastName": "Brown",
+      "email": "sophia.brown@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/women/2.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "Washington",
+        "state": "Alabama"
+      },
+      "company": {
+        "department": "Research and Development",
+        "name": "Schiller - Zieme",
+        "title": "Accountant"
+      }
+    },
+    {
+      "id": "4",
+      "firstName": "James",
+      "lastName": "Davis",
+      "email": "james.davis@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/men/10.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "Seattle",
+        "state": "Pennsylvania"
+      },
+      "company": {
+        "department": "Support",
+        "name": "Pagac and Sons",
+        "title": "Research Analyst"
+      }
+    },
+    {
+      "id": "5",
+      "firstName": "Emma",
+      "lastName": "Miller",
+      "email": "emma.miller@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/women/4.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "Jacksonville",
+        "state": "Colorado"
+      },
+      "company": {
+        "department": "Human Resources",
+        "name": "Graham - Gulgowski",
+        "title": "Quality Assurance Engineer"
+      }
+    },
+    {
+      "id": "6",
+      "firstName": "Olivia",
+      "lastName": "Wilson",
+      "email": "olivia.wilson@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/women/43.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "Fort Worth",
+        "state": "Tennessee"
+      },
+      "company": {
+        "department": "Product Management",
+        "name": "Pfannerstill Inc",
+        "title": "Research Analyst"
+      }
+    },
+    {
+      "id": "7",
+      "firstName": "Alexander",
+      "lastName": "Jones",
+      "email": "alexander.jones@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/men/74.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "Indianapolis",
+        "state": "Delaware"
+      },
+      "company": {
+        "department": "Engineering",
+        "name": "Dickens - Beahan",
+        "title": "Web Developer"
+      }
+    },
+    {
+      "id": "8",
+      "firstName": "Ava",
+      "lastName": "Taylor",
+      "email": "ava.taylor@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/women/64.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "Fort Worth",
+        "state": "Rhode Island"
+      },
+      "company": {
+        "department": "Marketing",
+        "name": "Nikolaus Inc",
+        "title": "Chief Executive Officer"
+      }
+    },
+    {
+      "id": "9",
+      "firstName": "Ethan",
+      "lastName": "Martinez",
+      "email": "ethan.martinez@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/men/85.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "San Antonio",
+        "state": "Louisiana"
+      },
+      "company": {
+        "department": "Support",
+        "name": "Gorczany - Gottlieb",
+        "title": "Legal Counsel"
+      }
+    },
+    {
+      "id": "10",
+      "firstName": "Isabella",
+      "lastName": "Anderson",
+      "email": "isabella.anderson@x.dummyjson.com",
+      "image": "https://randomuser.me/api/portraits/women/81.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi lacus sed viverra tellus in. Orci nulla pellentesque dignissim enim.",
+      "address": {
+        "city": "New York",
+        "state": "Utah"
+      },
+      "company": {
+        "department": "Marketing",
+        "name": "Pollich - Hilpert",
+        "title": "Chief Financial Officer"
+      }
+    }
+  ]
+}

@@ -1,9 +1,17 @@
+import BadgeComponent from '@/components/BadgeComponent';
+import MentorCard from '@/components/MentorCard';
 import PageHeader from '@/components/PageHeader';
+import mentors from '@/mentors.json';
+import { currentUser } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
-type User = {
-  id: number;
+export type Mentor = {
+  id: string;
   firstName: string;
   lastName: string;
+  email: string;
+  image: string;
+  bio: string;
   address: {
     city: string;
     state: string;
@@ -15,39 +23,18 @@ type User = {
   };
 };
 
-const getUsers = async () => {
-  const response = await fetch('https://dummyjson.com/users?limit=10');
-  if (!response.ok) throw new Error('Failed to fetch users');
-
-  return response.json();
-};
-
 export default async function MentorsPage() {
-  const data = await getUsers();
+  const user = await currentUser();
+  const isMentor = user?.publicMetadata?.isMentor as boolean;
+  if (!user) redirect('/');
+  if (isMentor) redirect('/home');
 
   return (
     <main className="main-container">
-      <PageHeader title="Mentors" />
+      <PageHeader title="Mentors" badgeComponent={<BadgeComponent />} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {data.users.map((user: User) => (
-          <div key={user.id} className="p-4 bg-white shadow rounded-lg">
-            <img
-              src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"
-              alt="User Avatar"
-              className="w-10 h-10 rounded-full"
-            />
-
-            <div className="flex space-x-4 items-center justify-between mb-4">
-              <h4 className="font-semibold">
-                {user.firstName} {user.lastName}
-              </h4>
-              <p>{user.company.title}</p>
-            </div>
-
-            <p className="font-extralight">
-              The mentor's short bio will go here
-            </p>
-          </div>
+        {mentors.users.map((mentor: Mentor) => (
+          <MentorCard key={mentor.id} mentor={mentor} userId={user.id} />
         ))}
       </div>
     </main>

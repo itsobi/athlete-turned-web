@@ -3,26 +3,39 @@
 import { usePathname } from 'next/navigation';
 import SidebarRow from './SidebarRow';
 import { Home, MessageCircle, Users } from 'lucide-react';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 
-export default function Sidebar() {
+export default function Sidebar({
+  isMentor,
+  name,
+}: {
+  isMentor: boolean;
+  name: string | undefined;
+}) {
   const pathname = usePathname();
 
-  const active = (href: string) => pathname === href;
+  const active = (href: string) => pathname.includes(href);
 
   return (
-    <div className="col-span-1 lg:col-span-2 p-4 flex flex-col items-center lg:items-start">
+    <section className="col-span-1 lg:col-span-2 p-4 flex flex-col items-center lg:items-start">
       <div className="hidden lg:inline-flex flex-col mb-4">
-        <h1 className="text-2xl font-bold text-gray-400">AthleteTurned</h1>
-        <p className="text-xs font-semibold">
-          Of the Athlete, by an Athlete, for the Athlete...
-        </p>
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold text-gray-400">
+            <span className="text-green-400">Athlete</span>Turned
+          </h1>
+          <p className="text-xs font-semibold">
+            Of the <span className="text-green-400">Athlete</span>, by an{' '}
+            <span className="text-green-400">Athlete</span>, for the{' '}
+            <span className="text-green-400">Athlete</span>...
+          </p>
+        </div>
         <p className="text-xs mt-2 text-black/25">
           Brought to you by:{' '}
           <a
             href="https://justobii.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-green-400 hover:underline"
+            className="text-gray-600 hover:underline"
           >
             justobii.com
           </a>
@@ -35,19 +48,25 @@ export default function Sidebar() {
           href="/home"
           active={active('/home')}
         />
-        <SidebarRow
-          Icon={Users}
-          title="Mentors"
-          href="/mentors"
-          active={active('/mentors')}
-        />
+        {!isMentor && (
+          <SidebarRow
+            Icon={Users}
+            title="Mentors"
+            href="/mentors"
+            active={active('/mentors')}
+          />
+        )}
         <SidebarRow
           Icon={MessageCircle}
-          title="Messages"
-          href="/messages"
-          active={active('/messages')}
+          title="Chat"
+          href="/chat"
+          active={active('/chat')}
         />
       </div>
-    </div>
+      <div className="mt-8 flex space-x-2">
+        <UserButton />
+        <p className="hidden lg:inline-flex font-semibold">{name}</p>
+      </div>
+    </section>
   );
 }
