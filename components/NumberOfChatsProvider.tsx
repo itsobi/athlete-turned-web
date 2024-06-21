@@ -18,12 +18,10 @@ export default function NumberOfChatsProvider({
 
   useEffect(() => {
     if (!user) return;
-
     return onSnapshot(
       doc(db, 'numberOfChats', user.id),
       (snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.data().count);
           // Store data in store
           setNumberOfChats(snapshot.data().count);
         } else {

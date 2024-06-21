@@ -15,7 +15,7 @@ export default function Home() {
             Athlete Turned
           </h1>
           <p className="text-xl text-white/45">
-            Of the Athlete, by an Athlete, for the Athlete...
+            Of the Athlete, by an Athlete, for the Athlete
           </p>
           <div className="flex items-center space-x-2 mt-10">
             {/* TODO: Change to production URL */}

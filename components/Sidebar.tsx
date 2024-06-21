@@ -26,7 +26,7 @@ export default function Sidebar({
           <p className="text-xs font-semibold">
             Of the <span className="text-green-400">Athlete</span>, by an{' '}
             <span className="text-green-400">Athlete</span>, for the{' '}
-            <span className="text-green-400">Athlete</span>...
+            <span className="text-green-400">Athlete</span>
           </p>
         </div>
         <p className="text-xs mt-2 text-black/25">

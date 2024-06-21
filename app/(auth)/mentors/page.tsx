@@ -23,18 +23,34 @@ export type Mentor = {
   };
 };
 
+export type UserObj = {
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
+  email: string;
+  image: string;
+};
+
 export default async function MentorsPage() {
   const user = await currentUser();
   const isMentor = user?.publicMetadata?.isMentor as boolean;
   if (!user) redirect('/');
   if (isMentor) redirect('/home');
 
+  const userObj: UserObj = {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.emailAddresses[0].emailAddress,
+    image: user.imageUrl,
+  };
+
   return (
     <main className="main-container">
       <PageHeader title="Mentors" badgeComponent={<BadgeComponent />} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {mentors.users.map((mentor: Mentor) => (
-          <MentorCard key={mentor.id} mentor={mentor} userId={user.id} />
+          <MentorCard key={mentor.id} mentor={mentor} user={userObj} />
         ))}
       </div>
     </main>

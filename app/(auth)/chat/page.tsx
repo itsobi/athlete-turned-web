@@ -1,15 +1,10 @@
-'use client';
-
+import ChatRows from '@/components/ChatRows';
 import PageHeader from '@/components/PageHeader';
-import { useNumberOfChatsStore } from '@/store/store';
-
-export default function ChatRoom() {
-  const numberOfChats = useNumberOfChatsStore((state) => state.count);
-  console.log('numberOfChats', numberOfChats);
+export default function Chats() {
   return (
     <main className="main-container">
-      <PageHeader title="Chat Room" />
-      <p>{numberOfChats}</p>
+      <PageHeader title="Chats" />
+      <ChatRows />
     </main>
   );
 }

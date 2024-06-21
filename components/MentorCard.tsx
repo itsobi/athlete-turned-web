@@ -1,19 +1,20 @@
 'use client';
 
-import { Mentor } from '@/app/(auth)/mentors/page';
+import { Mentor, UserObj } from '@/app/(auth)/mentors/page';
 import { Button } from './ui/button';
 import { MessageCircle } from 'lucide-react';
 import { useChatRoom } from '@/lib/hooks/useChatRoom';
 import { useNumberOfChatsStore } from '@/store/store';
+import { cn } from '@/lib/utils';
 
 export default function MentorCard({
   mentor,
-  userId,
+  user,
 }: {
   mentor: Mentor;
-  userId: string;
+  user: UserObj;
 }) {
-  const { goToChatRoom } = useChatRoom(mentor.id, userId);
+  const { goToChatRoom } = useChatRoom(mentor, user);
   const chatCount = useNumberOfChatsStore((state) => state.count);
 
   return (
@@ -32,11 +33,14 @@ export default function MentorCard({
       </div>
 
       <p className="font-extralight">{mentor.bio}</p>
-      <p>{chatCount}</p>
 
       <Button
         onClick={goToChatRoom}
-        className="w-full mt-4 hover:bg-green-400 rounded-full"
+        className={cn(
+          'w-full mt-4 hover:bg-green-400 rounded-full',
+          chatCount === 3 && 'cursor-not-allowed'
+        )}
+        disabled={chatCount === 3}
       >
         <MessageCircle className="mr-2" />
         Message

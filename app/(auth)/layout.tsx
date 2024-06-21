@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'AthleteTurned',
-  description: 'Of the Athlete, by an Athlete, for the Athlete...',
+  description: 'Of the Athlete, by an Athlete, for the Athlete',
 };
 
 export default async function AppLayout({

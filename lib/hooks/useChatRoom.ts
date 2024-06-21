@@ -2,7 +2,6 @@
 
 import { useToast } from '@/components/ui/use-toast';
 import { useNumberOfChatsStore } from '@/store/store';
-import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { getChatRoomId } from '../helpers';
 import {
@@ -14,12 +13,10 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { db } from '@/firebase';
+import { Mentor, UserObj } from '@/app/(auth)/mentors/page';
 
-// hooks/useChatRoom.ts
-
-export const useChatRoom = (mentorId: string, userId: string) => {
+export const useChatRoom = (mentor: Mentor, user: UserObj) => {
   const router = useRouter();
-  const { user } = useUser();
   const { toast } = useToast();
   const chatCount = useNumberOfChatsStore((state) => state.count);
   const setNumberOfChats = useNumberOfChatsStore(
@@ -37,7 +34,7 @@ export const useChatRoom = (mentorId: string, userId: string) => {
       return;
     }
 
-    const chatRoomId = getChatRoomId(mentorId, userId);
+    const chatRoomId = getChatRoomId(mentor.id, user.id);
     const chatRoomRef = doc(db, 'chatRooms', chatRoomId);
     const chatRoomsCollectionRef = collection(db, 'chatRooms');
 
@@ -54,8 +51,20 @@ export const useChatRoom = (mentorId: string, userId: string) => {
       if (!chatRoomSnapshot.exists()) {
         // Create the chat room since it does not exist
         await setDoc(doc(db, 'chatRooms', chatRoomId), {
-          chatRoomId: chatRoomId,
-          createdAt: serverTimestamp(),
+          chat_room_id: chatRoomId,
+          created_at: serverTimestamp(),
+          mentor_full_name:
+            mentor.firstName && mentor.lastName
+              ? `${mentor.firstName} ${mentor.lastName}`
+              : mentor.email,
+          mentor_image: mentor.image,
+          user_full_name:
+            user.firstName && user.lastName
+              ? `${user.firstName} ${user.lastName}`
+              : user.email,
+          user_image:
+            user.image ||
+            'https://psbu-smc-registry-stg.cummins.com/sites/smc/themes/custom/cummins_smc/images/profile.png',
         });
 
         const chatRoomsSnapshot = await getDocs(chatRoomsCollectionRef);
@@ -72,13 +81,6 @@ export const useChatRoom = (mentorId: string, userId: string) => {
           title: 'Chat room created!',
           description: `You have created a total of ${count} chat(s). You can now start chatting with this mentor.`,
         });
-      } else {
-        // Chat room already exists, no need to increment the chat count
-        toast({
-          className: 'bg-yellow-500 text-white',
-          title: 'Chat room exists!',
-          description: 'You already have a chat room with this mentor.',
-        });
       }
     } catch (error: any) {
       console.error('Chat room error', error);
@@ -89,7 +91,7 @@ export const useChatRoom = (mentorId: string, userId: string) => {
       });
     }
 
-    router.push(`/chat/${mentorId}`);
+    router.push(`/chat/${mentor.id}`);
   };
 
   return { goToChatRoom };

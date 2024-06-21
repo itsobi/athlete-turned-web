@@ -14,11 +14,11 @@ export default function BadgeComponent() {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <div
             className={cn(
               'flex rounded-full bg-green-400 px-2 text-white transition-all ease-in-out hover:animate-pulse',
-              chatCount === 2 && 'bg-yellow-300 text-black',
+              chatCount === 2 && 'bg-yellow-400',
               chatCount === 3 && 'bg-red-500'
             )}
           >
@@ -27,7 +27,7 @@ export default function BadgeComponent() {
         </TooltipTrigger>
         <TooltipContent className="border-none">
           <p className="text-xl text-center">
-            You have {chatCount - 3} chat(s) left
+            You have {3 - chatCount} chat(s) left
           </p>
         </TooltipContent>
       </Tooltip>
