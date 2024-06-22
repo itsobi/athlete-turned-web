@@ -1,7 +1,11 @@
+'use client';
+
+import { useIsMentorStore } from '@/store/store';
 import ChatRows from './ChatRows';
 import { Button } from './ui/button';
 
-export default function RightWidget({ isMentor }: { isMentor: boolean }) {
+export default function RightWidget() {
+  const isMentor = useIsMentorStore((state) => state.isMentor);
   return (
     <section className={`hidden lg:inline-grid lg:col-span-2 mt-4`}>
       <div className="flex flex-col space-y-10 p-4 xl:p-0">

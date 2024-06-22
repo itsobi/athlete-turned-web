@@ -3,18 +3,16 @@
 import { usePathname } from 'next/navigation';
 import SidebarRow from './SidebarRow';
 import { Home, MessageCircle, Users } from 'lucide-react';
-import { SignedIn, UserButton } from '@clerk/nextjs';
+import { UserButton } from '@clerk/nextjs';
+import { useFullNameStore, useIsMentorStore } from '@/store/store';
 
-export default function Sidebar({
-  isMentor,
-  name,
-}: {
-  isMentor: boolean;
-  name: string | undefined;
-}) {
+export default function Sidebar() {
   const pathname = usePathname();
 
   const active = (href: string) => pathname.includes(href);
+
+  const isMentor = useIsMentorStore((state) => state.isMentor);
+  const fullName = useFullNameStore((state) => state.fullName);
 
   return (
     <section className="col-span-1 lg:col-span-2 p-4 flex flex-col items-center lg:items-start">
@@ -65,7 +63,7 @@ export default function Sidebar({
       </div>
       <div className="mt-8 flex space-x-2">
         <UserButton />
-        <p className="hidden lg:inline-flex font-semibold">{name}</p>
+        <p className="hidden lg:inline-flex font-semibold">{fullName}</p>
       </div>
     </section>
   );
