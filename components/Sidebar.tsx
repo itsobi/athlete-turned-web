@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import SidebarRow from './SidebarRow';
-import { Home, MessageCircle, Users } from 'lucide-react';
+import { ClipboardPen, Home, MessageCircle, Users } from 'lucide-react';
 import { UserButton } from '@clerk/nextjs';
 import { useFullNameStore, useIsMentorStore } from '@/store/store';
 
@@ -59,6 +59,12 @@ export default function Sidebar() {
           title="Chat"
           href="/chat"
           active={active('/chat')}
+        />
+        <SidebarRow
+          Icon={ClipboardPen}
+          title="Apply"
+          href="/apply"
+          active={active('/apply')}
         />
       </div>
       <div className="mt-8 flex space-x-2">

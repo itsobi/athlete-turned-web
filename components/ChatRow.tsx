@@ -13,7 +13,7 @@ export default function ChatRow({ chatRoom }: { chatRoom: ChatRoom }) {
 
   return (
     <div
-      className="flex items-center justify-between p-4 hover:bg-gray-100 cursor-pointer rounded"
+      className="flex items-center justify-between p-4 hover:bg-gray-100 cursor-pointer rounded-md"
       onClick={() => router.push(`/chat/${chatRoom.chat_room_id}`)}
     >
       <div className="flex items-center space-x-1">
@@ -31,7 +31,7 @@ export default function ChatRow({ chatRoom }: { chatRoom: ChatRoom }) {
           <p className="font-semibold">
             {isMentor ? chatRoom.user_full_name : chatRoom.mentor_full_name}
           </p>
-          <p className="font-light text-sm">
+          <p className="font-light text-sm truncate">
             Part of the text string will go here...
           </p>
         </div>

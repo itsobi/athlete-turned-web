@@ -91,7 +91,7 @@ export const useChatRoom = (mentor: Mentor, user: UserObj) => {
       });
     }
 
-    router.push(`/chat/${mentor.id}`);
+    router.push(`/chat/${chatRoomId}`);
   };
 
   return { goToChatRoom };

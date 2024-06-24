@@ -5,7 +5,7 @@ import { chatRoomConverter } from '@/lib/converters/chatRooms';
 import { collection } from 'firebase/firestore';
 import { db } from '@/firebase';
 import ChatRow from './ChatRow';
-import LoadingContainer from './LoadingContainer';
+import ChatRowSkeleton from './ChatRowSkeleton';
 
 export default function ChatRows() {
   const [chatRooms, loading, error] = useCollectionData(
@@ -15,10 +15,10 @@ export default function ChatRows() {
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (loading) {
-    return <LoadingContainer text="Hold tight, grabbing your chats..." />;
+    return <ChatRowSkeleton />;
   } else {
     return chatRooms?.map((chatRoom) => (
-      <ChatRow key={chatRoom.chatRoomId} chatRoom={chatRoom} />
+      <ChatRow key={chatRoom.chat_room_id} chatRoom={chatRoom} />
     ));
   }
 }

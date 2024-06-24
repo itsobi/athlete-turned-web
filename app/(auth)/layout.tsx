@@ -16,11 +16,11 @@ export default async function AppLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="max-h-screen overflow-hidden lg:max-w-7xl mx-auto grid grid-cols-9 bg-gray-100/50">
+      <body className="max-h-screen overflow-scroll max-w-7xl mx-auto grid grid-cols-9 bg-gray-100/50">
         <StoreProvider>
           <Sidebar />
           {children}
-          <RightWidget />
+          {/* <RightWidget /> */}
           <Toaster />
         </StoreProvider>
       </body>
