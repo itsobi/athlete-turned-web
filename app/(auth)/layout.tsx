@@ -1,4 +1,3 @@
-import RightWidget from '@/components/RIghtWidget';
 import Sidebar from '@/components/Sidebar';
 import StoreProvider from '@/components/StoreProvider';
 import { Toaster } from '@/components/ui/toaster';
@@ -20,7 +19,6 @@ export default async function AppLayout({
         <StoreProvider>
           <Sidebar />
           {children}
-          {/* <RightWidget /> */}
           <Toaster />
         </StoreProvider>
       </body>

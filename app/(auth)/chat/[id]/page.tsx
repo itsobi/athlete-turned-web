@@ -23,8 +23,6 @@ export default async function ChatRoomPage({
 
   return (
     <main className="main-container">
-      <PageHeader title="Chat Room" />
-
       <ChatRoom chatRoomId={params.id} />
     </main>
   );
