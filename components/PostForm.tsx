@@ -50,7 +50,7 @@ export default function PostForm() {
             <FormItem>
               <FormControl>
                 <Textarea
-                  placeholder="What would you like to share to the network?"
+                  placeholder="What would you like to share?"
                   className="resize-none lg:text-lg placeholder:text-gray-400/70"
                   {...field}
                 />

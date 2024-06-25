@@ -7,14 +7,14 @@ import {
 
 export type ChatRoom = {
   chat_room_id: string;
-  created_at: string | null;
+  created_at: string;
   mentor_full_name: string;
   mentor_image: string;
   user_full_name: string;
   user_image: string;
 };
 
-export const chatRoomConverter: FirestoreDataConverter<ChatRoom> = {
+export const chatRoomsConverter: FirestoreDataConverter<ChatRoom> = {
   toFirestore(chatRoom: ChatRoom): DocumentData {
     return {
       chat_room_id: chatRoom.chat_room_id,

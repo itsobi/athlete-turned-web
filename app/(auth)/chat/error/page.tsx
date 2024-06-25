@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 export default function ChatError() {
   return (
     <main className="main-container">
-      <PageHeader title="Chat Error" error />
       <Alert
         variant="destructive"
         className="border-red-600 bg-red-600 text-white"

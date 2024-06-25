@@ -1,7 +1,7 @@
 'use client';
 
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { chatRoomConverter } from '@/lib/converters/chatRooms';
+import { chatRoomsConverter } from '@/lib/converters/chatRooms';
 import { collection } from 'firebase/firestore';
 import { db } from '@/firebase';
 import ChatRow from './ChatRow';
@@ -9,7 +9,7 @@ import ChatRowSkeleton from './ChatRowSkeleton';
 
 export default function ChatRows() {
   const [chatRooms, loading, error] = useCollectionData(
-    collection(db, 'chatRooms').withConverter(chatRoomConverter)
+    collection(db, 'chatRooms').withConverter(chatRoomsConverter)
   );
 
   if (error) {
