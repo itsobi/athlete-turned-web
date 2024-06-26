@@ -36,11 +36,6 @@ export default function ChatRow({ chatRoom }: { chatRoom: ChatRoom }) {
           </p>
         </div>
       </div>
-      <p className="text-xs">
-        {chatRoom.created_at
-          ? (chatRoom.created_at as any).toDate().toLocaleDateString()
-          : 'N/A'}
-      </p>
     </div>
   );
 }

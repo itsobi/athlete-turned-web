@@ -22,7 +22,9 @@ export default function PageHeader({
         >
           {title}
         </h1>
-        {subHeading && <h4 className="text-gray-400">{subHeading}</h4>}
+        {subHeading && (
+          <h4 className="text-gray-400 font-light">{subHeading}</h4>
+        )}
       </div>
       {badgeComponent && badgeComponent}
     </div>

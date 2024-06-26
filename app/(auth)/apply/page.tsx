@@ -6,7 +6,7 @@ export default function ApplyPage() {
     <main className="main-container">
       <PageHeader
         title="Apply"
-        subHeading="Interested in being a mentor? Fill out the form below and we will get back to you!"
+        subHeading="Interested in becoming a mentor? Fill out the form below and we will get back to you!"
       />
     </main>
   );
