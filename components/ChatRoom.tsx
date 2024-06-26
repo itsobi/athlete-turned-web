@@ -4,19 +4,23 @@ import PageHeader from './PageHeader';
 import ChatInput from './ChatInput';
 import { messagesConverter } from '@/lib/converters/messages';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, orderBy, query } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { LoaderCircle, MessageCircle } from 'lucide-react';
 import ChatMessages from './ChatMessages';
 import { Message } from '@/lib/converters/messages';
 
 export default function ChatRoom({ chatRoomId }: { chatRoomId: string }) {
-  // TODO: order messages by created_at
-  const [messages, loading, error] = useCollectionData<Message>(
-    collection(db, 'chatRooms', chatRoomId, 'messages').withConverter(
-      messagesConverter
-    )
-  );
+  const messagesRef = collection(
+    db,
+    'chatRooms',
+    chatRoomId,
+    'messages'
+  ).withConverter(messagesConverter);
+
+  const messagesQuery = query(messagesRef, orderBy('created_at', 'desc'));
+
+  const [messages, loading, error] = useCollectionData<Message>(messagesQuery);
 
   if (error) {
     return (
