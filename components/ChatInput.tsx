@@ -7,6 +7,7 @@ import { useUser } from '@clerk/nextjs';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { messagesConverter } from '@/lib/converters/messages';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function ChatInput({ chatRoomId }: { chatRoomId: string }) {
   const { toast } = useToast();
@@ -45,6 +46,7 @@ export default function ChatInput({ chatRoomId }: { chatRoomId: string }) {
     ).withConverter(messagesConverter);
 
     await addDoc(messagesRef, {
+      unique_id: uuidv4(),
       chat_room_id: chatRoomId,
       created_at: serverTimestamp(),
       message: message,

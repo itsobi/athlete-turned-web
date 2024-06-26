@@ -3,11 +3,13 @@ import {
   FirestoreDataConverter,
   QueryDocumentSnapshot,
   SnapshotOptions,
+  Timestamp,
 } from 'firebase/firestore';
 
 export type Message = {
+  unique_id: string;
   chat_room_id: string;
-  created_at: string;
+  created_at: Timestamp;
   message: string;
   sender_user_id: string;
   sender_full_name: string;
@@ -17,6 +19,7 @@ export type Message = {
 export const messagesConverter: FirestoreDataConverter<Message> = {
   toFirestore(message: Message): DocumentData {
     return {
+      unique_id: message.unique_id,
       chat_room_id: message.chat_room_id,
       created_at: message.created_at,
       message: message.message,
@@ -31,6 +34,7 @@ export const messagesConverter: FirestoreDataConverter<Message> = {
   ): Message {
     const data = snapshot.data(options);
     return {
+      unique_id: data.unique_id,
       chat_room_id: data.chat_room_id,
       created_at: data.created_at,
       message: data.message,

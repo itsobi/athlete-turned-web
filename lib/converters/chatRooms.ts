@@ -3,11 +3,12 @@ import {
   FirestoreDataConverter,
   QueryDocumentSnapshot,
   SnapshotOptions,
+  Timestamp,
 } from 'firebase/firestore';
 
 export type ChatRoom = {
   chat_room_id: string;
-  created_at: string;
+  created_at: Timestamp;
   mentor_full_name: string;
   mentor_image: string;
   user_full_name: string;
