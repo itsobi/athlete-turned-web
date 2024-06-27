@@ -9,18 +9,39 @@ import { db } from '@/firebase';
 import { LoaderCircle, MessageCircle } from 'lucide-react';
 import ChatMessages from './ChatMessages';
 import { Message } from '@/lib/converters/messages';
+import { useEffect, useRef, useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 
 export default function ChatRoom({ chatRoomId }: { chatRoomId: string }) {
+  const { user } = useUser();
   const messagesRef = collection(
     db,
     'chatRooms',
     chatRoomId,
     'messages'
   ).withConverter(messagesConverter);
+  const [fullName, setFullName] = useState('');
 
-  const messagesQuery = query(messagesRef, orderBy('created_at', 'desc'));
+  const messagesQuery = query(messagesRef, orderBy('created_at', 'asc'));
 
   const [messages, loading, error] = useCollectionData<Message>(messagesQuery);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const getNameOfRecipient = () => {
+    if (!user) return;
+
+    const messageWithFullName = messages?.find(
+      (message) => message.sender_user_id !== user.id
+    );
+
+    setFullName(messageWithFullName?.sender_full_name || 'Chat Room');
+  };
+
+  useEffect(() => {
+    getNameOfRecipient();
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, messagesEndRef]);
 
   if (error) {
     return (
@@ -31,7 +52,7 @@ export default function ChatRoom({ chatRoomId }: { chatRoomId: string }) {
   return (
     <div className="h-full flex flex-col">
       <div className="flex-1">
-        <PageHeader title="Chat Room" />
+        <PageHeader title={fullName} />
         {loading && (
           <main className="main-container">
             <div className="flex justify-center pt-8">
@@ -60,6 +81,7 @@ export default function ChatRoom({ chatRoomId }: { chatRoomId: string }) {
       </div>
 
       <ChatInput chatRoomId={chatRoomId} />
+      <div ref={messagesEndRef} />
     </div>
   );
 }

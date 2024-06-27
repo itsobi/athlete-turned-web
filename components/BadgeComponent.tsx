@@ -17,8 +17,8 @@ export default function BadgeComponent() {
         <TooltipTrigger asChild>
           <div
             className={cn(
-              'flex rounded-full bg-green-400 px-2 text-white transition-all ease-in-out hover:animate-pulse cursor-pointer',
-              chatCount === 2 && 'bg-yellow-400',
+              'flex rounded-full bg-green-400 px-2 text-white transition-all ease-in-out hover:animate-pulse cursor-default',
+              chatCount === 2 && 'bg-yellow-400 animate-pulse',
               chatCount === 3 && 'bg-red-500'
             )}
           >

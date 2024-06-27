@@ -14,7 +14,20 @@ export default function ChatMessages({ messages }: { messages: Message[] }) {
         const isSender = message.sender_user_id === user?.id;
         const date = new Date(message.created_at?.toDate()).toLocaleString();
         return (
-          <div key={message.unique_id} className="flex items-end mb-4">
+          <div
+            key={message.unique_id}
+            className={cn('flex items-end mb-4', {
+              'justify-end': isSender,
+              'justify-start': !isSender,
+            })}
+          >
+            {!isSender && (
+              <Avatar className="mr-2">
+                <AvatarImage src={message.sender_image} />
+                <AvatarFallback>{message.sender_full_name[0]}</AvatarFallback>
+              </Avatar>
+            )}
+
             <div
               className={cn(
                 'flex flex-col space-y-2 p-4 w-fit rounded-lg',
@@ -29,9 +42,7 @@ export default function ChatMessages({ messages }: { messages: Message[] }) {
                   isSender ? 'text-right' : 'text-left'
                 )}
               >
-                {isSender
-                  ? message.sender_full_name
-                  : user?.fullName || user?.emailAddresses[0].emailAddress}
+                {message.sender_full_name}
               </p>
 
               <p>{message.message}</p>
@@ -46,19 +57,10 @@ export default function ChatMessages({ messages }: { messages: Message[] }) {
               </p>
             </div>
 
-            {isSender ? (
-              <Avatar className="order-1">
+            {isSender && (
+              <Avatar className="ml-2">
                 <AvatarImage src={message.sender_image} />
                 <AvatarFallback>{message.sender_full_name[0]}</AvatarFallback>
-              </Avatar>
-            ) : (
-              <Avatar>
-                <AvatarImage src={user?.hasImage ? user?.imageUrl : ''} />
-                <AvatarFallback>
-                  {user?.fullName
-                    ? user?.fullName[0]
-                    : user?.emailAddresses[0].emailAddress}
-                </AvatarFallback>
               </Avatar>
             )}
           </div>

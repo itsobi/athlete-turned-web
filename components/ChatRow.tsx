@@ -1,19 +1,43 @@
+'use client';
+
 import { ChatRoom } from '@/lib/converters/chatRooms';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useIsMentorStore } from '@/store/store';
 import { useRouter } from 'next/navigation';
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
+import { db } from '@/firebase';
+import { messagesConverter } from '@/lib/converters/messages';
 
 export default function ChatRow({ chatRoom }: { chatRoom: ChatRoom }) {
-  // check if isMentor is true. If it is, show the user's name and image
-  // if it is false, show the mentor's name and image
   const isMentor = useIsMentorStore((state) => state.isMentor);
-
   const router = useRouter();
+  const [lastMessage, setLastMessage] = useState('');
+
+  useEffect(() => {
+    const getLastMessage = async () => {
+      const messagesRef = collection(
+        db,
+        'chatRooms',
+        chatRoom.chat_room_id,
+        'messages'
+      ).withConverter(messagesConverter);
+      const lastMessageQuery = query(
+        messagesRef,
+        orderBy('created_at', 'desc'),
+        limit(1)
+      );
+      const querySnapshot = await getDocs(lastMessageQuery);
+
+      setLastMessage(querySnapshot.docs[0]?.data().message);
+    };
+
+    getLastMessage();
+  }, [chatRoom.chat_room_id]);
 
   return (
     <div
-      className="flex items-center justify-between p-4 hover:bg-gray-100 cursor-pointer rounded-md"
+      className="flex items-center justify-between p-4 hover:bg-gray-200 cursor-pointer rounded-md"
       onClick={() => router.push(`/chat/${chatRoom.chat_room_id}`)}
     >
       <div className="flex items-center space-x-1">
@@ -32,7 +56,7 @@ export default function ChatRow({ chatRoom }: { chatRoom: ChatRoom }) {
             {isMentor ? chatRoom.user_full_name : chatRoom.mentor_full_name}
           </p>
           <p className="font-light text-sm truncate">
-            Part of the text string will go here...
+            {lastMessage || 'No messages yet'}
           </p>
         </div>
       </div>

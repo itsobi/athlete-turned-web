@@ -15,7 +15,7 @@ export default async function AppLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="max-h-screen overflow-scroll max-w-7xl mx-auto grid grid-cols-9 bg-gray-100/50">
+      <body className="max-h-screen overflow-scroll max-w-7xl mx-auto grid grid-cols-9 bg-slate-200/30">
         <StoreProvider>
           <Sidebar />
           {children}
