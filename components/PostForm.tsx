@@ -1,21 +1,20 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
+import { Textarea } from '@/components/ui/textarea';
+import { sendPost } from '@/actions/sendPost';
+import { useToast } from './ui/use-toast';
+import SubmitPost from './SubmitPost';
 import { Button } from '@/components/ui/button';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/components/ui/use-toast';
 
 const FormSchema = z.object({
   post: z
@@ -29,6 +28,7 @@ const FormSchema = z.object({
 });
 
 export default function PostForm() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -36,10 +36,24 @@ export default function PostForm() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data);
-  };
+  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    const response = await sendPost(values);
 
+    if (response.success) {
+      toast({
+        title: 'Post created successfully!',
+        description: 'Your post has been shared with AthleteTurned.',
+        className: 'bg-green-500 text-white',
+      });
+      form.reset();
+    } else {
+      toast({
+        title: 'An error occurred while creating the post',
+        description: 'Please try again later.',
+        variant: 'destructive',
+      });
+    }
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -62,10 +76,12 @@ export default function PostForm() {
         <div className="flex justify-end mt-2">
           <Button
             type="submit"
-            className="hover:bg-green-400"
+            className={`${
+              form.formState.isSubmitting && 'cursor-not-allowed bg-gray-300'
+            }`}
             disabled={form.formState.isSubmitting || !form.formState.isValid}
           >
-            Send post
+            {form.formState.isSubmitting ? 'Sending...' : 'Share'}
           </Button>
         </div>
       </form>

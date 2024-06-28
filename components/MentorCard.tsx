@@ -36,11 +36,8 @@ export default function MentorCard({
 
       <Button
         onClick={goToChatRoom}
-        className={cn(
-          'w-full mt-4 hover:bg-green-400 rounded-full',
-          chatCount === 3 && 'cursor-not-allowed'
-        )}
-        disabled={chatCount === 3}
+        className={cn('w-full mt-4 hover:bg-green-400 rounded-full')}
+        disabled={chatCount === 2}
       >
         <MessageCircle className="mr-2" />
         Message

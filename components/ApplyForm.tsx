@@ -15,16 +15,19 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
+import { sendEmail } from '@/actions/sendEmail';
+import { useToast } from './ui/use-toast';
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
   email: z.string().email(),
-  socialMedia: z.string().url(),
+  socialMedia: z.string().url({ message: 'Please provide a valid URL' }),
   bio: z.string().min(10).max(150),
 });
 
 export default function ApplyForm() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,9 +39,24 @@ export default function ApplyForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const response = await sendEmail(values);
+
+    if (response.success) {
+      toast({
+        title: 'Email sent successfully!',
+        description: 'You will hear back from us within 24 hours.',
+        className: 'bg-green-500 text-white',
+      });
+    } else {
+      toast({
+        title: 'An error occurred while sending the email',
+        description: 'Please try again later.',
+        variant: 'destructive',
+      });
+    }
   };
+
   return (
     <Form {...form}>
       <form
@@ -104,7 +122,7 @@ export default function ApplyForm() {
             <FormItem>
               <FormLabel>Social Media</FormLabel>
               <FormDescription>
-                Please provide a social media link. (LinkedIn, X, etc.)
+                Please provide a social media link (LinkedIn, X, etc.)
               </FormDescription>
               <FormControl>
                 <Input
@@ -126,7 +144,7 @@ export default function ApplyForm() {
               <FormDescription>Please provide a short bio.</FormDescription>
               <FormControl>
                 <Textarea
-                  placeholder="Tell us a bit about yourself..."
+                  placeholder="Tell us a little about yourself..."
                   {...field}
                   className="focus:bg-gray-100 resize-none"
                 />
@@ -135,8 +153,14 @@ export default function ApplyForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          Submit
+        <Button
+          type="submit"
+          className={`w-full ${
+            form.formState.isSubmitting && 'cursor-not-allowed bg-gray-300'
+          }`}
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? 'Submitting...' : 'Apply'}
         </Button>
       </form>
     </Form>

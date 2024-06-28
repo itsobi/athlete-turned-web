@@ -24,7 +24,7 @@ export default function SidebarRow({
   return (
     <Link
       href={href}
-      className="flex justify-center lg:justify-start items-center space-x-0 lg:space-x-2 hover:bg-gray-200 rounded-full cursor-pointer transition-all duration-100 ease-in-out group lg:p-2"
+      className="flex justify-center lg:justify-start items-center space-x-0 lg:space-x-2 lg:hover:bg-gray-200 rounded-full cursor-pointer transition-all duration-100 ease-in-out group lg:p-2"
     >
       <Icon
         className={`group-hover:text-green-400 ${active && 'text-green-400'}`}
