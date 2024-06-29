@@ -1,7 +1,5 @@
 import ChatRoom from '@/components/ChatRoom';
-import { db } from '@/firebase';
-import { chatRoomsConverter } from '@/lib/converters/chatRooms';
-import { collection, getDocs } from 'firebase/firestore';
+import { adminDB } from '@/firebaseAdmin';
 import { redirect } from 'next/navigation';
 
 export default async function ChatRoomPage({
@@ -9,10 +7,9 @@ export default async function ChatRoomPage({
 }: {
   params: { id: string };
 }) {
-  const chatRoomsCollectionRef = collection(db, 'chatRooms').withConverter(
-    chatRoomsConverter
-  );
-  const hasAccess = (await getDocs(chatRoomsCollectionRef)).docs.some(
+  const chatRoomsCollection = await adminDB.collection('chatRooms').get();
+
+  const hasAccess = chatRoomsCollection.docs.some(
     (doc) => doc.id === params.id
   );
 

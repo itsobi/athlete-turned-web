@@ -1,3 +1,4 @@
+import { UserCredential } from 'firebase/auth';
 import { create } from 'zustand';
 
 type NumberOfChatsState = {
@@ -7,14 +8,19 @@ type NumberOfChatsState = {
   zero: () => void;
 };
 
+type FullNameState = {
+  fullName: string;
+  setFullName: (fullName: string) => void;
+};
+
 type IsMentorState = {
   isMentor: boolean;
   setIsMentor: (isMentor: boolean) => void;
 };
 
-type FullNameState = {
-  fullName: string;
-  setFullName: (fullName: string) => void;
+type IntegrateWithClerkState = {
+  integratedUser: UserCredential;
+  setIntegratedUser: (user: any) => void;
 };
 
 export const useNumberOfChatsStore = create<NumberOfChatsState>((set) => ({
@@ -33,3 +39,10 @@ export const useFullNameStore = create<FullNameState>((set) => ({
   fullName: '',
   setFullName: (fullName) => set({ fullName }),
 }));
+
+export const useIntegrateWithClerkUserStore = create<IntegrateWithClerkState>(
+  (set) => ({
+    integratedUser: {} as UserCredential,
+    setIntegratedUser: (user) => set({ integratedUser: user }),
+  })
+);

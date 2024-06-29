@@ -1,9 +1,9 @@
 'use server';
 
-import { db } from '@/firebase';
+import { adminDB } from '@/firebaseAdmin';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
+import * as admin from 'firebase-admin';
 
 type Values = {
   post: string;
@@ -23,9 +23,9 @@ export const sendPost = async (values: Values) => {
     throw new Error('Post cannot be more than 200 characters');
 
   try {
-    await addDoc(collection(db, 'posts'), {
+    await adminDB.collection('posts').add({
       unique_id: uuidv4(),
-      created_at: serverTimestamp(),
+      created_at: admin.firestore.FieldValue.serverTimestamp(),
       post: post,
       user_id: userId,
       user_full_name: user?.fullName || user?.emailAddresses[0].emailAddress,

@@ -1,14 +1,17 @@
 'use client';
 
-import { db } from '@/firebase';
+import { auth, db } from '@/firebase';
 import {
   useFullNameStore,
+  useIntegrateWithClerkUserStore,
   useIsMentorStore,
   useNumberOfChatsStore,
 } from '@/store/store';
 import { useUser } from '@clerk/nextjs';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '@clerk/nextjs';
+import { signInWithCustomToken } from 'firebase/auth';
 
 export default function StoreProvider({
   children,
@@ -16,6 +19,7 @@ export default function StoreProvider({
   children: React.ReactNode;
 }) {
   const { user } = useUser();
+  const { getToken } = useAuth();
   const IS_MENTOR = user?.publicMetadata?.isMentor as boolean;
   const FULL_NAME =
     user?.firstName && user?.lastName
@@ -26,10 +30,24 @@ export default function StoreProvider({
   );
   const setIsMentor = useIsMentorStore((state) => state.setIsMentor);
   const setFullName = useFullNameStore((state) => state.setFullName);
+  const setIntegratedUser = useIntegrateWithClerkUserStore(
+    (state) => state.setIntegratedUser
+  );
+
+  const integrateWithClerk = async () => {
+    const token = await getToken({ template: 'integration_firebase' });
+
+    try {
+      await signInWithCustomToken(auth, token || '');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (!user) return;
 
+    integrateWithClerk();
     setIsMentor(IS_MENTOR);
     setFullName(FULL_NAME as string);
     return onSnapshot(
@@ -47,7 +65,7 @@ export default function StoreProvider({
         console.error('Error getting number of chats', error);
       }
     );
-  }, [user, setNumberOfChats]);
+  }, [user, setNumberOfChats, setIntegratedUser]);
 
   return <>{children}</>;
 }

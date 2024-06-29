@@ -3,7 +3,6 @@
 import { Textarea } from '@/components/ui/textarea';
 import { sendPost } from '@/actions/sendPost';
 import { useToast } from './ui/use-toast';
-import SubmitPost from './SubmitPost';
 import { Button } from '@/components/ui/button';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
