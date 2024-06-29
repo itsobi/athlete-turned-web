@@ -14,6 +14,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
+import { useIsMentorStore } from '@/store/store';
 
 const FormSchema = z.object({
   post: z
@@ -28,6 +29,7 @@ const FormSchema = z.object({
 
 export default function PostForm() {
   const { toast } = useToast();
+  const isMentor = useIsMentorStore((state) => state.isMentor);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -36,7 +38,7 @@ export default function PostForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    const response = await sendPost(values);
+    const response = await sendPost(values.post, isMentor);
 
     if (response.success) {
       toast({
@@ -55,7 +57,7 @@ export default function PostForm() {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mb-4">
         <FormField
           control={form.control}
           name="post"

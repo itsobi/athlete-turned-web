@@ -12,6 +12,7 @@ export type Post = {
   post: string;
   user_id: string;
   user_full_name: string;
+  is_mentor: boolean;
   user_image?: string;
 };
 
@@ -23,6 +24,7 @@ export const postsConverter: FirestoreDataConverter<Post> = {
       post: post.post,
       user_id: post.user_id,
       user_full_name: post.user_full_name,
+      is_mentor: post.is_mentor,
       user_image: post.user_image,
     };
   },
@@ -37,6 +39,7 @@ export const postsConverter: FirestoreDataConverter<Post> = {
       post: data.post,
       user_id: data.user_id,
       user_full_name: data.user_full_name,
+      is_mentor: data.is_mentor,
       user_image: data.user_image,
     };
   },

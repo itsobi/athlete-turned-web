@@ -60,12 +60,14 @@ export default function Sidebar() {
           href="/chat"
           active={active('/chat')}
         />
-        <SidebarRow
-          Icon={ClipboardPen}
-          title="Apply"
-          href="/apply"
-          active={active('/apply')}
-        />
+        {!isMentor && (
+          <SidebarRow
+            Icon={ClipboardPen}
+            title="Apply"
+            href="/apply"
+            active={active('/apply')}
+          />
+        )}
       </div>
       <div className="mt-8 flex space-x-2">
         <UserButton />

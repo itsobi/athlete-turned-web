@@ -5,15 +5,10 @@ import { auth, currentUser } from '@clerk/nextjs/server';
 import { v4 as uuidv4 } from 'uuid';
 import * as admin from 'firebase-admin';
 
-type Values = {
-  post: string;
-};
-
-export const sendPost = async (values: Values) => {
+export const sendPost = async (post: string, isMentor: boolean) => {
   auth().protect();
   const { userId } = auth();
   const user = await currentUser();
-  const post = values.post.trim();
 
   if (!userId) throw new Error('User is not authorized');
 
@@ -30,6 +25,7 @@ export const sendPost = async (values: Values) => {
       user_id: userId,
       user_full_name: user?.fullName || user?.emailAddresses[0].emailAddress,
       user_image: user?.hasImage ? user.imageUrl : '',
+      is_mentor: isMentor || false,
     });
     return { success: 'Post created successfully' };
   } catch (error) {

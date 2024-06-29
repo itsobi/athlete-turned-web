@@ -24,7 +24,9 @@ export default function ChatMessages({ messages }: { messages: Message[] }) {
             {!isSender && (
               <Avatar className="mr-2">
                 <AvatarImage src={message.sender_image} />
-                <AvatarFallback>{message.sender_full_name[0]}</AvatarFallback>
+                <AvatarFallback className="bg-green-400 text-white">
+                  {message.sender_full_name[0]}
+                </AvatarFallback>
               </Avatar>
             )}
 
