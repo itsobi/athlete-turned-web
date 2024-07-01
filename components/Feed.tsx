@@ -2,17 +2,18 @@
 
 import { db } from '@/firebase';
 import { postsConverter } from '@/lib/converters/posts';
-import { collection } from 'firebase/firestore';
+import { collection, orderBy, query } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import LoadingSpinner from './LoadingSpinner';
 import Post from './Post';
-import { useIsMentorStore } from '@/store/store';
 
 export default function Feed() {
   const [posts, loading, error] = useCollectionData(
-    collection(db, 'posts').withConverter(postsConverter)
+    query(
+      collection(db, 'posts').withConverter(postsConverter),
+      orderBy('created_at', 'desc') // Sort by createdAt in descending order
+    )
   );
-  const isMentor = useIsMentorStore((state) => state.isMentor);
 
   if (loading) return <LoadingSpinner />;
 
@@ -22,7 +23,7 @@ export default function Feed() {
     posts && (
       <>
         {posts.map((post) => (
-          <Post key={post.unique_id} post={post} />
+          <Post key={post.post_id} post={post} />
         ))}
       </>
     )

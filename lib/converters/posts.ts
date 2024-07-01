@@ -7,7 +7,7 @@ import {
 } from 'firebase/firestore';
 
 export type Post = {
-  unique_id: string;
+  post_id: string;
   created_at: Timestamp;
   post: string;
   user_id: string;
@@ -19,7 +19,7 @@ export type Post = {
 export const postsConverter: FirestoreDataConverter<Post> = {
   toFirestore(post: Post): DocumentData {
     return {
-      unique_id: post.unique_id,
+      post_id: post.post_id,
       created_at: post.created_at,
       post: post.post,
       user_id: post.user_id,
@@ -34,7 +34,7 @@ export const postsConverter: FirestoreDataConverter<Post> = {
   ): Post {
     const data = snapshot.data(options);
     return {
-      unique_id: data.unique_id,
+      post_id: data.post_id,
       created_at: data.created_at,
       post: data.post,
       user_id: data.user_id,

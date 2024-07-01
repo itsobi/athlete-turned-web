@@ -82,7 +82,7 @@ export default function PostForm() {
             }`}
             disabled={form.formState.isSubmitting || !form.formState.isValid}
           >
-            {form.formState.isSubmitting ? 'Sending...' : 'Share'}
+            {form.formState.isSubmitting ? 'Sending...' : 'Post'}
           </Button>
         </div>
       </form>

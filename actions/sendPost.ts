@@ -2,7 +2,6 @@
 
 import { adminDB } from '@/firebaseAdmin';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { v4 as uuidv4 } from 'uuid';
 import * as admin from 'firebase-admin';
 
 export const sendPost = async (post: string, isMentor: boolean) => {
@@ -17,9 +16,12 @@ export const sendPost = async (post: string, isMentor: boolean) => {
   if (post.length > 200)
     throw new Error('Post cannot be more than 200 characters');
 
+  const postRef = adminDB.collection('posts').doc();
+  const postId = postRef.id;
+
   try {
-    await adminDB.collection('posts').add({
-      unique_id: uuidv4(),
+    await postRef.set({
+      post_id: postId,
       created_at: admin.firestore.FieldValue.serverTimestamp(),
       post: post,
       user_id: userId,
