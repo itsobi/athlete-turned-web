@@ -15,6 +15,7 @@ import {
 import { db } from '@/firebase';
 import { useToast } from './ui/use-toast';
 import { useEffect, useState } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 export default function Post({ post }: { post: PostType }) {
   const { user } = useUser();
@@ -22,6 +23,10 @@ export default function Post({ post }: { post: PostType }) {
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const postRef = doc(db, 'posts', post.post_id);
   const likeRef = doc(collection(postRef, 'likes'), user?.id);
+
+  // get number of likes for a post
+  const likesQuery = collection(postRef, 'likes');
+  const [likes, loadingLikes, errorLikes] = useCollectionData(likesQuery);
 
   useEffect(() => {
     if (!user || !post.post_id) return;
@@ -36,7 +41,7 @@ export default function Post({ post }: { post: PostType }) {
     };
 
     checkIfLiked();
-  }, [post, user]);
+  }, [likes, user]);
 
   const handleLike = async () => {
     if (!user) return;
@@ -80,13 +85,17 @@ export default function Post({ post }: { post: PostType }) {
         </div>
         <p>{post.post}</p>
         <div className="flex items-center space-x-6 mt-4">
-          <button
-            onClick={handleLike}
-            className="cursor-pointer hover:opacity-50 disabled:cursor-not-allowed disabled:hover:opacity-100"
-            disabled={user?.id === post.user_id || alreadyLiked}
-          >
-            <ThumbsUp size={18} />
-          </button>
+          <div className="flex items-center">
+            <button
+              onClick={handleLike}
+              className="cursor-pointer hover:opacity-50 disabled:cursor-not-allowed disabled:hover:opacity-100"
+              disabled={user?.id === post.user_id || alreadyLiked}
+            >
+              <ThumbsUp size={18} />
+            </button>
+            <p>{likes?.length}</p>
+          </div>
+
           <button className="cursor-pointer hover:opacity-50">
             <MessageCircle size={18} />
           </button>
